@@ -1,0 +1,126 @@
+{{>layouts/header}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>내 정보</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            background-color: #000032;
+            font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui,
+            Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo',
+            'Noto Sans KR', 'Malgun Gothic', sans-serif;
+            text-align: center;
+            color: white;
+        }
+
+        .info {
+            margin-top: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile,
+        .mng,
+        .use {
+            border: 2px solid white;
+            border-radius: 10px;
+            width: 40%;
+            margin-bottom: 20px;
+            padding: 15px 0;
+        }
+
+        td {
+            border: none;
+            font-size: 20px;
+            text-align: start;
+            font-weight: 500;
+            padding-left: 30px;
+        }
+
+        .title {
+            font-size: 25px;
+            font-weight: bold;
+            text-align: start;
+            margin-left: 20px;
+        }
+
+        .func {
+            font-size: 22px;
+            font-weight: 500;
+            text-align: start;
+            margin-top: 10px;
+            margin-left: 30px;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<iframe
+        src="./menu2.html"
+        frameborder="0"
+        scrolling="no"
+        style="width: 100%; height: 100px"
+></iframe>
+
+<div class="info">
+    <div class="profile">
+        <table>
+            <tbody>
+            <tr>
+                <th rowspan="2"><img src="/TMI/img/person.png" /></th>
+                <td class="title">김지윤</td>
+            </tr>
+            <tr>
+                <td class="func">23학번</td>
+            </tr>
+            <tr>
+                <td class="title">이메일</td>
+                <td class="func">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;qwer1234@naver.com
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="title">
+                    <a href="./setPwd.html">비밀번호 변경</a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="title">
+                    <a href="./setEmail.html">이메일 변경</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="mng">
+        <div class="title">커뮤니티 관리</div>
+        <div class="func">게시판 관리</div>
+        <div class="func">이용 제한 내역</div>
+    </div>
+    <div class="use">
+        <div class="title">이용 안내</div>
+        <div class="func"><a href="./inquiry.html">문의하기</a></div>
+        <div class="func">로그아웃</div>
+        <div class="func"><a href="./cancel.html">회원탈퇴</a></div>
+    </div>
+</div>
+
+<iframe
+        src="./footer.html"
+        frameborder="0"
+        scrolling="no"
+        style="width: 100%; height: 50px"
+></iframe>
+</body>
+</html>
+{{>layouts/footer}}

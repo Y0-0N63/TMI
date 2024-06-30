@@ -5,13 +5,33 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class FirstController {
-    @GetMapping("/index")
-    public String index(){
-        return"header";
+    @GetMapping("/aboutUs")
+    public String aboutUs(){
+        return "aboutUs";
     }
 
-    @GetMapping("/aboutUs")
-    public String show(){
-        return "aboutUs";
+    @GetMapping("/cancel")
+    public String cancel(){
+        return "cancel";
+    }
+
+    @GetMapping("/community")
+    public String community(){
+        return "community";
+    }
+
+    @GetMapping("/findPwd")
+    public String findPwd(){
+        return "findPwd";
+    }
+
+    @GetMapping("/index")
+    public String index(){
+        return "index";
+    }
+
+    @GetMapping("/info")
+    public String info(){
+        return "info";
     }
 }
