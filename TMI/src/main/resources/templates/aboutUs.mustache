@@ -1,0 +1,269 @@
+{{>layouts/header}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>동아리 소개</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            background-color: #000032;
+            font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui,
+            Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo',
+            'Noto Sans KR', 'Malgun Gothic', sans-serif;
+            text-align: center;
+            color: white;
+        }
+
+        .info {
+            margin-top: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding-left: 100px;
+            padding-right: 100px;
+        }
+
+        .title {
+            text-align: left;
+            font-size: 40px;
+            font-weight: bolder;
+            margin-bottom: 5px;
+        }
+
+        .content {
+            text-align: left;
+            font-size: 25px;
+            margin-bottom: 50px;
+            font-weight: 200;
+        }
+
+        #title_eng {
+            font-style: italic;
+        }
+
+        .profile {
+            width: 100px;
+            height: 100px;
+            border: 1px solid white;
+            border-radius: 10px;
+        }
+
+        .member {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        #memberTitle {
+            margin-bottom: 20px;
+        }
+
+        .mng {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        #mng_title {
+            font-size: 30px;
+            font-weight: bolder;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .members {
+            display: flex;
+            text-align: left;
+        }
+
+        .memberList {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            justify-items: center;
+        }
+
+        .num {
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .name {
+            font-size: 23px;
+            font-weight: 500;
+        }
+
+        .list_item {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .profile_placeholder {
+            width: 100px;
+            height: 100px;
+            border: 1px solid white;
+            border-radius: 10px;
+            margin: 5px 0;
+        }
+
+        .another {
+            text-align: left;
+            margin-left: 200px;
+            margin-top: 100px;
+            font-size: 23px;
+            font-weight: 500;
+        }
+
+        #studyIcon {
+            position: fixed;
+            bottom: 100px;
+            right: 150px;
+            font-size: 150px;
+            cursor: pointer;
+            background-color: transparent;
+        }
+
+        #termText {
+            text-decoration: underline;
+            color: white;
+            font-style: italic;
+            margin-right: 5px;
+        }
+
+        #termSelect {
+            width: 75px;
+            height: 35px;
+            font-size: 19px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+<iframe
+        src="./menu2.html"
+        frameborder="0"
+        scrolling="no"
+        style="width: 100%; height: 100px"
+></iframe>
+
+<div class="info">
+    <div class="information">
+        <div class="title">📖동아리 소개</div>
+        <div class="content" id="title_eng">Toeic In Medical information</div>
+        <div class="title">🔥동아리 활동</div>
+        <div class="content" id="activity">
+            우리 동아리는 토익을 공부하는 사람들이 서로 동기부여가 되어 이끌어줘
+            원하는 점수에 도달할 수 있도록 도와주는 동아리입니다.
+        </div>
+    </div>
+    <div class="member">
+        <div class="title" id="memberTitle">🙋현재 부원 (3기)</div>
+        <div class="title" id="mng_title">운영진</div>
+        <div class="memberList mng">
+            <div class="list_item">
+                <div class="profile_placeholder"></div>
+                <span class="num">23'</span><span class="name">김지윤</span>
+            </div>
+            <div class="list_item">
+                <div class="profile_placeholder"></div>
+                <span class="num">23'</span><span class="name">이채은</span>
+            </div>
+            <div class="list_item">
+                <div class="profile_placeholder"></div>
+                <span class="num">23'</span><span class="name">박민서</span>
+            </div>
+        </div>
+        <div class="title" id="mng_title">부원</div>
+        <div class="memberList">
+            <div class="list_item">
+                <div class="profile_placeholder"></div>
+                <span class="num">23'</span><span class="name">김민준</span>
+            </div>
+            <div class="list_item">
+                <div class="profile_placeholder"></div>
+                <span class="num">23'</span><span class="name">이서윤</span>
+            </div>
+            <div class="list_item">
+                <div class="profile_placeholder"></div>
+                <span class="num">23'</span><span class="name">이서준</span>
+            </div>
+            <div class="list_item">
+                <div class="profile_placeholder"></div>
+                <span class="num">24'</span><span class="name">박서연</span>
+            </div>
+            <div class="list_item">
+                <div class="profile_placeholder"></div>
+                <span class="num">24'</span><span class="name">최도윤</span>
+            </div>
+            <div class="list_item">
+                <div class="profile_placeholder"></div>
+                <span class="num">24'</span><span class="name">김지우</span>
+            </div>
+            <div class="list_item">
+                <div class="profile_placeholder"></div>
+                <span class="num">24'</span><span class="name">이하윤</span>
+            </div>
+            <div class="list_item">
+                <div class="profile_placeholder"></div>
+                <span class="num">24'</span><span class="name">박민서</span>
+            </div>
+            <div class="list_item">
+                <div class="profile_placeholder"></div>
+                <span class="num">24'</span><span class="name">최윤서</span>
+            </div>
+            <div class="list_item">
+                <div class="profile_placeholder"></div>
+                <span class="num">24'</span><span class="name">김지호</span>
+            </div>
+            <div class="list_item">
+                <div class="profile_placeholder"></div>
+                <span class="num">24'</span><span class="name">이주원</span>
+            </div>
+            <div class="list_item">
+                <div class="profile_placeholder"></div>
+                <span class="num">24'</span><span class="name">박하준</span>
+            </div>
+            <div class="list_item">
+                <div class="profile_placeholder"></div>
+                <span class="num">24'</span><span class="name">최준우</span>
+            </div>
+            <div class="list_item">
+                <div class="profile_placeholder"></div>
+                <span class="num">24'</span><span class="name">김민서</span>
+            </div>
+            <div class="list_item">
+                <div class="profile_placeholder"></div>
+                <span class="num">24'</span><span class="name">김서준</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="another">
+    <label for="termSelect" id="termText">이전 기수 보러 가기➡️</label>
+    <select id="termSelect">
+        <option value="1">1기</option>
+        <option value="2">2기</option>
+        <option value="3" selected>3기</option>
+        <option value="4">4기</option>
+        <option value="5">5기</option>
+    </select>
+</div>
+
+<span id="studyIcon">📖</span>
+
+<iframe
+        src="./footer.html"
+        frameborder="0"
+        scrolling="no"
+        style="width: 100%; height: 100px"
+></iframe>
+</body>
+</html>
+{{>layouts/footer}}
