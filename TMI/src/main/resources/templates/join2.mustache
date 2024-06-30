@@ -1,0 +1,104 @@
+{{>layouts/header}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>회원가입 페이지 2</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            background-color: #000032;
+            font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui,
+            Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo',
+            'Noto Sans KR', 'Malgun Gothic', sans-serif;
+            text-align: center;
+            color: white;
+        }
+
+        .join {
+            margin-top: 200px;
+        }
+
+        #inputNum,
+        #inputPwd,
+        #inputEmail {
+            font-size: 20px;
+            padding: 5px 10px;
+            line-height: 20px;
+            margin-bottom: 10px;
+            width: 470px;
+            height: 50px;
+            border: 1px solid white;
+            border-radius: 7px;
+            background-color: #ccccd6;
+            color: black;
+        }
+
+        #joinBtn, #cancelBtn {
+            font-size: 25px;
+            font-weight: 700;
+            padding: 5px;
+            line-height: 25px;
+            margin-top: 20px;
+            width: 240px;
+            height: 65px;
+            background-color: white;
+            border-radius: 15px;
+            color: #000032;
+        }
+
+        a {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<iframe
+        src="./menu.html"
+        frameborder="0"
+        scrolling="no"
+        style="width: 100%; height: 100px"
+></iframe>
+
+<div class="join">
+    <input id="inputNum" type="text" placeholder="학번을 입력하세요" />
+    <br />
+    <input
+            id="inputPwd"
+            type="password"
+            placeholder="이름을 입력하세요"
+    />
+    <br />
+    <input
+            id="inputEmail"
+            type="text"
+            placeholder="이메일 주소를 입력하세요"
+    />
+    <br>
+    <input
+            id="inputEmail"
+            type="text"
+            placeholder="인증번호 4자리 입력"
+    />
+    <br>
+    <button id="joinBtn" onclick="location.href='./index.html', alert('회원가입이 완료되었습니다.')">
+        가입하기
+    </button>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button id="cancelBtn" onclick="location.href='./index.html'">
+        취소
+    </button>
+</div>
+
+    <iframe
+            src="./footer.html"
+            frameborder="0"
+            scrolling="no"
+            style="width: 100%; height: 80px"
+    ></iframe>
+</body>
+</html>
+{{>layouts/footer}}

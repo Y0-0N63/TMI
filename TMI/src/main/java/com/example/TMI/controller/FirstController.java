@@ -34,4 +34,19 @@ public class FirstController {
     public String info(){
         return "info";
     }
+
+    @GetMapping("/inquiry")
+    public String inquiry(){
+        return "inquiry";
+    }
+
+    @GetMapping("/join1")
+    public String join1(){
+        return "join1";
+    }
+
+    @GetMapping("/join2")
+    public String join2(){
+        return "join2";
+    }
 }
