@@ -1,0 +1,175 @@
+{{>layouts/header}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>게시글</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            background-color: #000032;
+            font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui,
+            Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo',
+            'Noto Sans KR', 'Malgun Gothic', sans-serif;
+            color: white;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: calc(100vh - 180px);
+        }
+
+        .writing {
+            border: 3px solid white;
+            width: 70%;
+            height: 350px;
+            border-radius: 20px;
+            text-align: left;
+            padding: 20px 50px;
+            margin-bottom: 5px;
+        }
+
+        .comment {
+            border: 3px solid white;
+            width: 70%;
+            height: 80px;
+            border-radius: 15px;
+            text-align: left;
+            padding: 15px 50px;
+            margin-top: 5px;
+            margin-bottom: 20px;
+        }
+
+        #sort {
+            font-size: 25px;
+        }
+
+        #inputTitle {
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        #inputContent {
+            font-size: 20px;
+        }
+
+        #writer {
+            font-size: 23px;
+            font-weight: bold;
+        }
+
+        #cmtContent {
+            font-size: 20px;
+        }
+
+        #inputCmt {
+            width: 2500px;
+            height: 35px;
+            padding: 10px 15px;
+            line-height: 50px;
+            text-align: left;
+            border: 3px solid white;
+            border-radius: 15px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        #inputCmt::placeholder {
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .writeCmt {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-top: 10px;
+            gap: 20px;
+            width: 70%;
+        }
+
+        #cmtBtn {
+            font-size: 22px;
+            font-weight: 700;
+            padding: 5px 10px;
+            width: 270px;
+            height: 60px;
+            background-color: white;
+            border-radius: 15px;
+            color: #000032;
+        }
+
+        #cancelBtn {
+            font-size: 22px;
+            font-weight: 700;
+            padding: 5px 10px;
+            width: 270px;
+            height: 60px;
+            background-color: #000032;
+            border: 3px solid white;
+            border-radius: 15px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<iframe
+        src="./menu2.html"
+        frameborder="0"
+        scrolling="no"
+        style="width: 100%; height: 100px"
+></iframe>
+
+<div class="container">
+    <div class="writing">
+        <div id="sort">[Q&A]</div>
+        <br />
+        <div id="inputTitle" scrolling="no">문제 질문</div>
+        <br />
+        <br />
+        <div id="inputContent" scrolling="no">
+            TOEIC 응시확인서는 시험 종료 후 화요일부터 PC를 사용하여 출력 하실수
+            있습니다. <br />
+            TOEIC 홈페이지-[시험접수]-[접수확인/변경/취소]-[자세히보기] 클릭 후
+            응시확인서를 출력하시기 바랍니다. <br />
+            TOEIC 응시확인서는 TOEIC 정기시험 응시자에 한해 접수일로부터 1년 동안
+            출력가능 합니다.
+        </div>
+        <br />
+    </div>
+
+    <div class="comment">
+        <div id="writer">이철수</div>
+        <br />
+        <div id="cmtContent">
+            TOEIC Speaking 응시확인서는 시험 종료 후 그 다음날 부터 PC를 사용하여
+            출력 하실수 있습니다.
+        </div>
+    </div>
+
+    <div class="writeCmt">
+        <input id="inputCmt" placeholder="댓글 작성하기" />
+        <button id="cmtBtn" onclick="alert('댓글을 업로드하였습니다.')">
+            등록하기
+        </button>
+        <button id="cancelBtn" onclick="location.href='./post.html'">
+            나가기
+        </button>
+    </div>
+</div>
+
+<iframe
+        src="./footer.html"
+        frameborder="0"
+        scrolling="no"
+        style="width: 100%; height: 80px"
+></iframe>
+</body>
+</html>
+{{>layouts/footer}}

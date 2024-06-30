@@ -49,4 +49,29 @@ public class FirstController {
     public String join2(){
         return "join2";
     }
+
+    @GetMapping("/login")
+    public String login(){
+        return "login";
+    }
+
+    @GetMapping("/post")
+    public String post(){
+        return "post";
+    }
+
+    @GetMapping("/setEmail")
+    public String setEmail(){
+        return "setEmail";
+    }
+
+    @GetMapping("/setPwd")
+    public String setPwd(){
+        return "setPwd";
+    }
+
+    @GetMapping("/writing")
+    public String writing(){
+        return "writing";
+    }
 }
