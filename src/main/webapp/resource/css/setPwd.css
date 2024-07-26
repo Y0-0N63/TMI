@@ -1,0 +1,60 @@
+* {
+    margin: 0;
+    padding: 0;
+    background-color: #000032;
+    font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto,
+    'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR',
+    'Malgun Gothic', sans-serif;
+    text-align: center;
+    color: white;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+
+.setPwd {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.setPwd_input input {
+    font-size: 20px;
+    line-height: 20px;
+    margin-bottom: 10px;
+    width: 500px;
+    height: 50px;
+    border: 1px solid white;
+    border-radius: 7px;
+    background-color: #ccccd6;
+    color: black;
+}
+
+.setPwd_btn button {
+    font-size: 25px;
+    font-weight: 700;
+    line-height: 25px;
+    width: 500px;
+    height: 65px;
+    background-color: white;
+    border-radius: 15px;
+    color: #000032;
+    margin-top: 10px;
+}
+
+#cancelBtn {
+    border: 3px solid white;
+    background-color: #000032;
+    color: white;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}

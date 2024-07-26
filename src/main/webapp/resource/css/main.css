@@ -1,0 +1,210 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #000032;
+    color: white;
+    font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui,
+    Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo',
+    'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    text-align: center;
+}
+
+.notice {
+    margin-top: 10px;
+}
+
+#noticeBar {
+    width: 60%;
+    height: 55px;
+    background-color: #efeff2;
+    border-radius: 10px;
+    text-align: left;
+    padding: 12px;
+    font-size: 23px;
+    font-weight: bold;
+    margin: 50px auto;
+    color: #000032;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+.bbs {
+    flex: 1;
+    width: 700px;
+    height: 320px;
+    background-color: #efeff2;
+    border-radius: 12px;
+    padding: 25px 0;
+    text-align: center;
+    color: #000032;
+    font-size: 25px;
+    font-weight: bold;
+    margin-top: 70px;
+    margin-right: 30px;
+}
+
+.post {
+    margin: 15px 0;
+}
+
+.post a {
+    color: #000032;
+    font-size: 22px;
+    font-weight: bold;
+    text-decoration: none;
+    background-color: #efeff2;
+    padding: 5px 10px;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+.calendar {
+    flex: 1;
+    width: 450px;
+    text-align: center;
+    margin-left: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    margin-bottom: 20px;
+}
+
+.year-month {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.nav-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    line-height: 40px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: white;
+    transition: background-color 0.3s;
+}
+
+.nav-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.go-today {
+    width: 100px;
+    border-left: 1px solid #333333;
+    border-right: 1px solid #333333;
+}
+
+.days {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.day {
+    flex: 1;
+    font-weight: bold;
+}
+
+.dates {
+    display: flex;
+    flex-wrap: wrap;
+    height: auto;
+    border: 1px solid #333333;
+}
+
+.date {
+    flex-basis: calc(100% / 7);
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #333333;
+    border-left: 1px solid #333333;
+    font-size: 18px;
+}
+
+.day:nth-child(7n + 1),
+.date:nth-child(7n + 1) {
+    color: #d13e3e;
+}
+
+.day:nth-child(7n),
+.date:nth-child(7n) {
+    color: #396ee2;
+}
+
+.other {
+    opacity: 0.3;
+}
+
+.today {
+    position: relative;
+    color: #000032;
+}
+
+.today::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    background-color: #f5ffb6;
+    border-radius: 50%;
+    content: '';
+    z-index: -1;
+}
+
+#studyIcon {
+    position: fixed;
+    bottom: 100px;
+    right: 150px;
+    font-size: 150px;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.boldPost {
+    font-weight: bold;
+}
+
+.scheduleDay {
+    text-align: end;
+}
+
+.scheduleContent {
+    text-align: left;
+}
+
+.othersContent {
+    color: #ff8888;
+}
+
+.schContent {
+    color: #8db1ff;
+}
+
+.clbContent {
+    color: #f5ffb6;
+}
