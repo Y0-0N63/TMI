@@ -4,7 +4,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>커뮤니티</title>
+    <title>게시판</title>
     <link rel="stylesheet" type="text/css" href="./resource/css/community.css">
 </head>
 <body>
@@ -46,11 +46,7 @@
         </div>
 
         <span class="menuItem">
-          <input
-                  type="text"
-                  id="menuSearch"
-                  placeholder="검색어를 입력해주세요"
-          />
+            <input type="text" id="menuSearch" placeholder="검색어를 입력해주세요" />
         </span>
 
         <button id="searchBtn">검색</button>
@@ -80,13 +76,16 @@
         </tr>
         </thead>
         <tbody>
-        <% for (bbs post : posts) { %>
+        <%
+            int startNum = totalPosts - (pageNumber - 1) * pageSize;
+            for (bbs post : posts) {
+        %>
         <tr>
-            <td><%= post.getPostNum() %></td>
+            <td><%= startNum-- %></td>
             <td><a href="./post.jsp?postNum=<%= post.getPostNum() %>"><%= post.getPostTitle() %></a></td>
-            <td>작성자</td> <!-- Add the actual author information if available -->
+            <td><%= post.getAuthorName() %></td>
             <td><%= new java.text.SimpleDateFormat("yyyy.MM.dd").format(post.getPostTime()) %></td>
-            <td>조회수</td> <!-- Add the actual view count if available -->
+            <td><%= post.getViewCount() %></td>
         </tr>
         <% } %>
         </tbody>

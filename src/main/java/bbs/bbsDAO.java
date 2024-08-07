@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class bbsDAO {
@@ -54,7 +53,10 @@ public class bbsDAO {
                 post.setPostNum(rs.getInt("postNum"));
                 post.setPostTitle(rs.getString("postTitle"));
                 post.setPostContent(rs.getString("postContent"));
-                post.setSubject(Integer.valueOf(rs.getString("subject")));
+                post.setSubject(rs.getInt("subject"));
+                post.setPostTime(rs.getTimestamp("postTime"));
+                post.setViewCount(rs.getInt("viewCount"));
+                post.setAuthorName(getAuthorName(rs.getInt("userId")));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,9 +64,25 @@ public class bbsDAO {
         return post;
     }
 
+    public String getAuthorName(int userId) {
+        String sql = "SELECT userName FROM user WHERE userId = ?";
+        String authorName = "작성자";
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, userId);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                authorName = rs.getString("userName");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return authorName;
+    }
+
     public List<bbs> getPosts(int pageNumber, int pageSize) {
         List<bbs> posts = new ArrayList<>();
-        String sql = "SELECT * FROM bbs ORDER BY postTime DESC LIMIT ?, ?";
+        String sql = "SELECT * FROM bbs ORDER BY postNum DESC LIMIT ?, ?";
         try {
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, (pageNumber - 1) * pageSize);
@@ -77,12 +95,25 @@ public class bbsDAO {
                 post.setPostContent(rs.getString("postContent"));
                 post.setSubject(rs.getInt("subject"));
                 post.setPostTime(rs.getTimestamp("postTime"));
+                post.setViewCount(rs.getInt("viewCount"));
+                post.setAuthorName(getAuthorName(rs.getInt("userId")));
                 posts.add(post);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return posts;
+    }
+
+    public void incrementViewCount(int postNum) {
+        String sql = "UPDATE bbs SET viewCount = viewCount + 1 WHERE postNum = ?";
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, postNum);
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public int getTotalPostCount() {

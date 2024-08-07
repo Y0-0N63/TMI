@@ -8,6 +8,9 @@ public class bbs {
     private String postTitle;
     private Integer subject;
     private String postContent;
+    private String authorName;
+    private Integer viewCount;
+
 
     public Integer getPostNum() {
         return postNum;
@@ -58,6 +61,22 @@ public class bbs {
     }
 
     private Date postTime;
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+
+    public Integer getViewCount() {
+        return viewCount;
+    }
+
+    public void setViewCount(Integer viewCount) {
+        this.viewCount = viewCount;
+    }
 
 
     public bbs() {

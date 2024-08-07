@@ -46,6 +46,9 @@
     bbs post = dao.getPost(postNum);
 
     if (post != null) {
+        // 조회수 증가
+        dao.incrementViewCount(postNum);
+
         // 댓글 조회
         replyDAO replydao = new replyDAO();
         List<reply> comments = replydao.getReplies(postNum);
@@ -60,6 +63,7 @@
         <br />
         <div id="inputContent"><%= post.getPostContent() %></div>
         <br />
+        <div id="viewCount">조회수: <%= post.getViewCount() %></div> <!-- 조회수 표시 -->
     </div>
 
     <div class="comment">
