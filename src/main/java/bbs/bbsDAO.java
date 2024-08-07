@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class bbsDAO {
     private Connection conn;
@@ -38,5 +40,63 @@ public class bbsDAO {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public bbs getPost(int postNum) {
+        String sql = "SELECT * FROM bbs WHERE postNum = ?";
+        bbs post = null;
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, postNum);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                post = new bbs();
+                post.setPostNum(rs.getInt("postNum"));
+                post.setPostTitle(rs.getString("postTitle"));
+                post.setPostContent(rs.getString("postContent"));
+                post.setSubject(Integer.valueOf(rs.getString("subject")));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return post;
+    }
+
+    public List<bbs> getPosts(int pageNumber, int pageSize) {
+        List<bbs> posts = new ArrayList<>();
+        String sql = "SELECT * FROM bbs ORDER BY postTime DESC LIMIT ?, ?";
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, (pageNumber - 1) * pageSize);
+            pstmt.setInt(2, pageSize);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                bbs post = new bbs();
+                post.setPostNum(rs.getInt("postNum"));
+                post.setPostTitle(rs.getString("postTitle"));
+                post.setPostContent(rs.getString("postContent"));
+                post.setSubject(rs.getInt("subject"));
+                post.setPostTime(rs.getTimestamp("postTime"));
+                posts.add(post);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return posts;
+    }
+
+    public int getTotalPostCount() {
+        int count = 0;
+        String sql = "SELECT COUNT(*) FROM bbs";
+        try {
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return count;
     }
 }
