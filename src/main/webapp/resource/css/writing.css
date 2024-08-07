@@ -1,0 +1,115 @@
+* {
+    margin: 0;
+    padding: 0;
+    background-color: #000032;
+    font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto,
+    'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR',
+    'Malgun Gothic', sans-serif;
+    text-align: center;
+    color: white;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 180px);
+}
+
+.writing {
+    margin-top: 50px;
+    border: 3px solid white;
+    width: 70%;
+    height: 550px;
+    border-radius: 20px;
+    text-align: left;
+    padding-left: 50px;
+}
+
+#sort {
+    margin-top: 30px;
+    width: 150px;
+    height: 40px;
+    font-size: 20px;
+    font-weight: 500;
+    text-align: left;
+    border: none;
+}
+
+#inputTitle {
+    width: 90%;
+    height: 50px;
+    padding: 10px 15px;
+    line-height: 50px;
+    text-align: left;
+    border: none;
+    font-size: 23px;
+    font-weight: bold;
+}
+
+#inputContent {
+    font-size: 22px;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    width: 90%;
+    height: 350px;
+    color: white;
+    text-align: left;
+    border: none;
+}
+
+#inputTitle::placeholder {
+    color: white;
+    font-size: 23px;
+    font-weight: bold;
+}
+
+#inputContent::placeholder {
+    font-size: 22px;
+    font-weight: 500;
+    color: white;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 20px;
+    gap: 20px;
+    width: 70%;
+}
+
+#inqBtn {
+    font-size: 25px;
+    font-weight: 700;
+    padding: 5px 10px;
+    line-height: 25px;
+    width: 250px;
+    height: 65px;
+    background-color: white;
+    border-radius: 15px;
+    color: #000032;
+}
+
+#cancelBtn {
+    font-size: 25px;
+    font-weight: 700;
+    padding: 5px 10px;
+    line-height: 25px;
+    width: 250px;
+    height: 65px;
+    background-color: #000032;
+    border: 3px solid white;
+    border-radius: 15px;
+    color: white;
+}
+
+.hidden-file-input {
+    display: none;
+}
+
+#clip {
+    width: 60px;
+    cursor: pointer;
+}

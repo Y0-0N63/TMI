@@ -13,7 +13,7 @@
 ></iframe>
 
 <div class="setPwd">
-    <form action="setPwd.jsp" method="post">
+    <form action="setPwdAction.jsp" method="post">
         <div class="setPwd_input">
             <div>
                 <input

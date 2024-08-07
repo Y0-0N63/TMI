@@ -23,18 +23,23 @@
         script.println("history.back()");
         script.println("</script>");
     } else {
-        try {
-            // 현재 비밀번호 확인
-            userdao.login(userId, currentPwd);
-            // 비밀번호 변경
-            userdao.setPwd(userId, newPwd);
+        boolean validCurrentPwd = userdao.login(userId, currentPwd);
+        if (validCurrentPwd) {
+            boolean setNewPwd = userdao.setPwd(userId, newPwd);
+            if (setNewPwd) {
+                script.println("<script>");
+                script.println("alert('비밀번호가 성공적으로 변경되었습니다.');");
+                script.println("location.href = 'main.jsp';");
+                script.println("</script>");
+            } else {
+                script.println("<script>");
+                script.println("alert('비밀번호 변경에 실패했습니다.');");
+                script.println("history.back()");
+                script.println("</script>");
+            }
+        } else {
             script.println("<script>");
-            script.println("alert('비밀번호가 성공적으로 변경되었습니다.');");
-            script.println("location.href = 'main.jsp';");
-            script.println("</script>");
-        } catch (Exception e) {
-            script.println("<script>");
-            script.println("alert('오류 발생: " + e.getMessage() + "');");
+            script.println("alert('현재 비밀번호가 올바르지 않습니다.');");
             script.println("history.back()");
             script.println("</script>");
         }
