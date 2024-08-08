@@ -4,6 +4,6 @@
     <title>Index</title>
 </head>
 <body>
-<script>location.href='info.jsp'</script>
+<script>location.href='writing.jsp'</script>
 </body>
 </html>

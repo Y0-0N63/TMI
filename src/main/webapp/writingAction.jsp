@@ -19,6 +19,10 @@
     String sortString = request.getParameter("sort");
     int subject = 0; // 기본값 설정
 
+    System.out.println("postTitle: " + postTitle);
+    System.out.println("postContent: " + postContent);
+    System.out.println("sortString: " + sortString);
+
     // 파라미터 유효성 검사
     if (sortString != null && !sortString.isEmpty()) {
         try {
@@ -34,7 +38,7 @@
     Date postTime = new Date();
 
     // 입력 값이 유효한지 확인
-    if (postTitle != null && !postTitle.trim().isEmpty() && postContent != null && !postContent.trim().isEmpty()) {
+    if (postTitle != null && !postTitle.isEmpty() && postContent != null && !postContent.isEmpty()) {
         bbs post = new bbs();
         post.setUserId(userId);
         post.setPostTitle(postTitle);

@@ -15,9 +15,9 @@
 <form class="container" method="post" action="writingAction.jsp">
     <div class="writing">
         <select name="subject" id="sort">
-            <option value="notice">공지사항</option>
-            <option value="q&a">Q&A</option>
             <option value="none">말머리 없음</option>
+            <option value="q&a">Q&A</option>
+            <option value="notice">공지사항</option>
         </select>
         <br />
         <textarea
@@ -38,11 +38,13 @@
 
     <div class="btn">
         <img src="/TMI/img/clip.png" id="clip" />
-        <input type="file" id="fileInput" class="hidden-file-input" />
-        <button id="inqBtn" onclick="alert('게시글을 업로드하였습니다.')">
+        <input type="file" id="fileInput" name="fileInput" class="hidden-file-input" />
+        <span id="fileName">첨부 파일 없음</span>
+        <br />
+        <button id="inqBtn" type="submit">
             업로드
         </button>
-        <button id="cancelBtn" onclick="location.href='main.jsp'">
+        <button id="cancelBtn" type="button" onclick="location.href='main.jsp'">
             취소
         </button>
     </div>
@@ -55,6 +57,6 @@
         style="width: 100%; height: 80px"
 ></iframe>
 
-<script src="js/writing.js"></script>
+<script src="./resource/js/writing.js"></script>
 </body>
 </html>

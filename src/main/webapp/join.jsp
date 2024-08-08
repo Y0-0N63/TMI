@@ -46,11 +46,10 @@
         <button
                 id="joinBtn"
                 type="submit"
-                onclick="location.href='main.jsp', alert('회원가입이 완료되었습니다.')"
         >
             가입하기
         </button>
-        <button id="cancelBtn" onclick="location.href='main.jsp', alert('회원가입이 취소되었습니다.')">
+        <button id="cancelBtn" >
             취소
         </button>
     </div>

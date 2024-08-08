@@ -6,7 +6,10 @@ document
     .getElementById('fileInput')
     .addEventListener('change', function (event) {
         const file = event.target.files[0];
+        const fileNameSpan = document.getElementById('fileName');
         if (file) {
-            alert(`Selected file: ${file.name}`);
+            fileNameSpan.textContent = `첨부 파일: ${file.name}`;
+        } else {
+            fileNameSpan.textContent = '첨부 파일 없음';
         }
     });

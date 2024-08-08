@@ -16,12 +16,19 @@
     userDAO userdao = new userDAO();
     PrintWriter script = response.getWriter();
 
-    System.out.println("UserId: " + user.getUserId());
-    System.out.println("UserName: " + user.getUserName());
-    System.out.println("UserPwd: " + user.getUserPwd());
-    System.out.println("UserEmail: " + user.getUserEmail());
+    // 입력 파라미터 가져오기
+    String userId = request.getParameter("userId");
+    String userName = request.getParameter("userName");
+    String userPwd = request.getParameter("userPwd");
+    String userEmail = request.getParameter("userEmail");
 
-    if (user.getUserId() != null && user.getUserName() != null && user.getUserPwd() != null && user.getUserEmail() != null) {
+    System.out.println("userId: " + userId);
+    System.out.println("userName: " + userName);
+    System.out.println("userPwd: " + userPwd);
+    System.out.println("userEmail: " + userEmail);
+
+
+    if (userId != null && userName != null && userPwd != null && userEmail != null) {
         boolean success = userdao.join(user);
         if (success) {
             script.println("<script>");
