@@ -25,7 +25,7 @@
         />
     </div>
     <div class="login_button">
-        <button id="loginBtn" type="submit" onclick="location.href='./index.html'">
+        <button id="loginBtn" type="submit">
             로그인
         </button>
     </div>

@@ -15,8 +15,15 @@
     userDAO userdao = new userDAO();
     PrintWriter script = response.getWriter();
 
-    if (user.getUserId() != null && user.getUserPwd() != null) {
-        boolean success = userdao.login(user.getUserId(), user.getUserPwd());
+    String userId = request.getParameter("userId");
+    String userPwd = request.getParameter("userPwd");
+
+    System.out.println("userId: " + userId);
+    System.out.println("userPwd: " + userPwd);
+
+
+    if (userId != null && !userId.isEmpty() && userPwd != null && !userPwd.isEmpty()) {
+        boolean success = userdao.login(userId, userPwd);
         if (success){
             script.println("<script>");
             script.println("location.href = 'main.jsp';");

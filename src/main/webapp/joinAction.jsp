@@ -16,7 +16,6 @@
     userDAO userdao = new userDAO();
     PrintWriter script = response.getWriter();
 
-    // 입력 파라미터 가져오기
     String userId = request.getParameter("userId");
     String userName = request.getParameter("userName");
     String userPwd = request.getParameter("userPwd");
@@ -28,7 +27,7 @@
     System.out.println("userEmail: " + userEmail);
 
 
-    if (userId != null && userName != null && userPwd != null && userEmail != null) {
+    if (userId != null && !userId.isEmpty() && userName != null && !userName.isEmpty() && userPwd != null && !userPwd.isEmpty() && userEmail != null && !userEmail.isEmpty() ) {
         boolean success = userdao.join(user);
         if (success) {
             script.println("<script>");

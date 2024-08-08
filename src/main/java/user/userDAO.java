@@ -88,6 +88,22 @@ public class userDAO {
         }
     }
 
+    public boolean verifyPwd(String userId, String currentPwd){
+        String sql = "SELECT userPwd FROM user WHERE userId = ?";
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, userId);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                String storedPwd = rs.getString("userPwd");
+                return storedPwd.equals(currentPwd);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public user getUserInfo(String userId) {
         String sql = "SELECT * FROM user WHERE userId = ?";
         user userInfo = null;
