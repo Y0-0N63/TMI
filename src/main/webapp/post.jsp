@@ -47,7 +47,7 @@
 
     if (post != null) {
         // 조회수 증가
-        dao.incrementViewCount(postNum);
+        dao.increaseView(postNum);
 
         // 댓글 조회
         replyDAO replydao = new replyDAO();

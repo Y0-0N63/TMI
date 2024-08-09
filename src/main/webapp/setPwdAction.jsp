@@ -27,6 +27,15 @@
             script.println("</script>");
             return;
         }
+
+        if (!newPwd.equals(newPwdAgain)){
+            script.println("<script>");
+            script.println("alert('재확인 비밀번호를 다시 입력해주세요.');");
+            script.println("history.back()");
+            script.println("</script>");
+            return;
+        }
+
         boolean success = userdao.setPwd(userId, newPwd);
         if (success) {
             script.println("<script>");
@@ -39,6 +48,7 @@
             script.println("history.back()");
             script.println("</script>");
         }
+
     } else {
         script.println("<script>");
         script.println("alert('모든 항목을 입력해주세요.');");

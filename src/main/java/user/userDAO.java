@@ -47,10 +47,10 @@ public class userDAO {
         String sql = "INSERT INTO user (isDeleted, userType, userId, userComment, userEmail, userName, userPwd) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try {
             pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, user.getIsDeleted() == null ? 0 : user.getIsDeleted()); // 기본값 설정
-            pstmt.setInt(2, user.getUserType() == null ? 0 : user.getUserType()); // 기본값 설정
+            pstmt.setInt(1, user.getIsDeleted() == null ? 0 : user.getIsDeleted());
+            pstmt.setInt(2, user.getUserType() == null ? 0 : user.getUserType());
             pstmt.setString(3, user.getUserId());
-            pstmt.setString(4, user.getUserComment() == null ? "" : user.getUserComment()); // 기본값 설정
+            pstmt.setString(4, user.getUserComment() == null ? "" : user.getUserComment());
             pstmt.setString(5, user.getUserEmail());
             pstmt.setString(6, user.getUserName());
             pstmt.setString(7, user.getUserPwd());
@@ -73,6 +73,22 @@ public class userDAO {
         }
     }
 
+    public boolean verifyPwd(String userId, String currentPwd){
+        String sql = "SELECT userPwd FROM user WHERE userId = ?";
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, userId);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                String existingPwd = rs.getString("userPwd");
+                return existingPwd.equals(currentPwd);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public boolean setPwd(String userId, String newPwd) {
         String sql = "UPDATE user SET userPwd = ? WHERE userId = ?";
         try {
@@ -83,25 +99,8 @@ public class userDAO {
             return true;
         } catch (Exception e){
             e.printStackTrace();
-            // DB 오류
             return false;
         }
-    }
-
-    public boolean verifyPwd(String userId, String currentPwd){
-        String sql = "SELECT userPwd FROM user WHERE userId = ?";
-        try {
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, userId);
-            ResultSet rs = pstmt.executeQuery();
-            if (rs.next()) {
-                String storedPwd = rs.getString("userPwd");
-                return storedPwd.equals(currentPwd);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
     }
 
     public user getUserInfo(String userId) {
