@@ -1,8 +1,6 @@
 package bbs;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Vector;
 
 public class bbsDAO {
@@ -65,6 +63,40 @@ public class bbsDAO {
         return total;
     }
 
+    public void updateAuthorName() {
+        String getUserNameSql = "SELECT userName FROM user WHERE userId = ?";
+        String updateAuthorNameSql = "UPDATE bbs SET authorName =? WHERE userId = ?";
+
+        try {
+            String selectPostsSql = "SELECT postNum, userId FROM bbs";
+            pstmt = conn.prepareStatement(selectPostsSql);
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                int postNum = rs.getInt("postNum");
+                int userId = rs.getInt("userId");
+
+                PreparedStatement getUerName = conn.prepareStatement(getUserNameSql);
+                getUerName.setInt(1, userId);
+                ResultSet rsUserName = getUerName.executeQuery();
+
+                String authorName = "알 수 없음";
+                if (rsUserName.next()) {
+                    authorName = rsUserName.getString("userName");
+                    if (authorName == null || authorName.isEmpty()) {
+                        authorName = "알 수 없음";
+                    }
+                }
+
+                PreparedStatement pstmtUpdateAuthor = conn.prepareStatement(updateAuthorNameSql);
+                pstmtUpdateAuthor.setString(1, authorName);
+                pstmtUpdateAuthor.setInt(2, userId);
+                pstmtUpdateAuthor.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public Vector<bbs> getPosts(int start, int limit) {
         String sql = "SELECT * FROM bbs ORDER BY postNum DESC LIMIT ?, ?";
@@ -84,27 +116,13 @@ public class bbsDAO {
                 post.setPostContent(rs.getString("postContent"));
                 post.setPostTime(rs.getDate("postTime"));
                 post.setViewCount(rs.getInt("viewCount"));
+                post.setAuthorName(rs.getString("authorName"));
+
                 posts.add(post);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return posts;
-    }
-
-    public String getAuthorName(int userId) {
-        String sql = "SELECT userName FROM user WHERE userId = ?";
-        String authorName = "작성자";
-        try {
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, userId);
-            rs = pstmt.executeQuery();
-            if (rs.next()) {
-                authorName = rs.getString("userName");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return authorName;
     }
 }

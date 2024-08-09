@@ -17,6 +17,8 @@
 
 <%
     bbsDAO bbsdao = new bbsDAO();
+    bbsdao.updateAuthorName();
+
     int totalPost = bbsdao.getTotal();
     String tempStart = request.getParameter("bbs");
 
@@ -77,10 +79,11 @@
         </tr>
         <%
             for (int i=0; i<posts.size(); i++) {
+
         %>
         <tr>
             <td><%= posts.get(i).getPostNum() %></td>
-            <td><a href="#"> <%= posts.get(i).getPostTitle() %></a></td>
+            <td><a href="post.jsp?postNum=<%= posts.get(i).getPostNum() %>"> <%= posts.get(i).getPostTitle() %></a></td>
             <td><%= posts.get(i).getAuthorName() %></td>
             <td><%= posts.get(i).getPostTime() %></td>
             <td><%= posts.get(i).getViewCount() %></td>
