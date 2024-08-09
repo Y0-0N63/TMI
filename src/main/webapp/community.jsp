@@ -83,7 +83,20 @@
         %>
         <tr>
             <td><%= posts.get(i).getPostNum() %></td>
-            <td><a href="post.jsp?postNum=<%= posts.get(i).getPostNum() %>"> <%= posts.get(i).getPostTitle() %></a></td>
+            <td>
+                <%
+                    String subjectPrefix = "";
+                    int subject = posts.get(i).getSubject();
+                    if (subject == 1) {
+                        subjectPrefix = "[Q&A] ";
+                    } else if (subject == 2) {
+                        subjectPrefix = "[공지사항] ";
+                    }
+                %>
+                <a href="post.jsp?postNum=<%= posts.get(i).getPostNum() %>">
+                    <%= subjectPrefix + posts.get(i).getPostTitle() %>
+                </a>
+            </td>
             <td><%= posts.get(i).getAuthorName() %></td>
             <td><%= posts.get(i).getPostTime() %></td>
             <td><%= posts.get(i).getViewCount() %></td>

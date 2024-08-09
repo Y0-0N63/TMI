@@ -103,6 +103,25 @@ public class userDAO {
         }
     }
 
+    public String getUserName(int userId) {
+        String userName = "알 수 없음";
+        String sql = "SELECT userName FROM user WHERE userId = ?";
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, userId);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                userName = rs.getString("userName");
+                if (userName == null || userName.isEmpty()) {
+                    userName = "알 수 없음";
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return userName;
+    }
+
     public user getUserInfo(String userId) {
         String sql = "SELECT * FROM user WHERE userId = ?";
         user userInfo = null;

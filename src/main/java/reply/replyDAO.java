@@ -21,15 +21,14 @@ public class replyDAO {
         }
     }
 
-    public boolean insertReply(int postNum, int userId, String reName, String reContent, java.util.Date reTime) {
-        String sql = "INSERT INTO reply (postNum, userId, reName, reContent, reTime) VALUES (?, ?, ?, ?, ?)";
+    public boolean insertReply(int postNum, int userId, String reContent, Date reTime) {
+        String sql = "INSERT INTO reply (postNum, userId, reContent, reTime) VALUES (?, ?, ?, ?)";
         try {
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, postNum);
             pstmt.setInt(2, userId);
-            pstmt.setString(3, reName);
-            pstmt.setString(4, reContent);
-            pstmt.setTimestamp(5, new Timestamp(reTime.getTime()));
+            pstmt.setString(3, reContent);
+            pstmt.setTimestamp(4, new Timestamp(reTime.getTime()));
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -50,7 +49,6 @@ public class replyDAO {
                 reply.setReNum(rs.getInt("reNum"));
                 reply.setPostNum(rs.getInt("postNum"));
                 reply.setUserId(rs.getInt("userId"));
-                reply.setReName(rs.getString("reName"));
                 reply.setReContent(rs.getString("reContent"));
                 reply.setReTime(rs.getTimestamp("reTime"));
                 replies.add(reply);

@@ -91,7 +91,7 @@
             for (int i = 0; i < comments.size(); i++) {
                 reply comment = comments.get(i);
         %>
-        <div id="writer"><%= comment.getReName() %></div>
+        <div id="writer"><%= comment.getUserId() %></div>
         <br />
         <div id="cmtContent"><%= comment.getReContent() %></div>
         <br />

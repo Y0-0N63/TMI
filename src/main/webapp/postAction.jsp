@@ -1,4 +1,7 @@
 <%@ page import="reply.replyDAO" %>
+<%@ page import="user.userDAO" %>
+<%@ page import="java.io.PrintWriter" %>
+<%@ page import="java.util.Date" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -6,31 +9,40 @@
 </head>
 <body>
 <%
-    String postNumStr = request.getParameter("postNum");
+    PrintWriter script = response.getWriter();
+    userDAO userdao = new userDAO();
+    replyDAO replydao = new replyDAO();
+
+    String postNumber = request.getParameter("postNum");
     String reContent = request.getParameter("reContent");
 
-    if (postNumStr != null && reContent != null && !reContent.trim().isEmpty()) {
-        int postNum = Integer.parseInt(postNumStr);
+    System.out.println("postNum: " + postNumber);
+    System.out.println("reContent: " + reContent);
 
-        // 실제 사용자 정보로 수정하기!!!
-        int userId = 202310498;
-        String reName = "최보윤";
+    if (postNumber != null && !postNumber.isEmpty() && reContent != null && !reContent.isEmpty()) {
+        try {
+            int num = Integer.parseInt(postNumber);
+            // 수정!!!!!!!!!!!!!!!!
+            int userId = 202310498;
+            Date reTime = new Date();
+            String reName = userdao.getUserName(userId);
+            java.sql.Date sqlDate = new java.sql.Date(reTime.getTime());
 
-        java.util.Date utilDate = new java.util.Date();
-        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-
-        replyDAO replyDao = new replyDAO();
-        boolean success = replyDao.insertReply(postNum, userId, reName, reContent, sqlDate);
-
-        if (success) {
-            response.sendRedirect("post.jsp?postNum=" + postNum);
-        } else {
-            response.sendRedirect("post.jsp?postNum=" + postNum + "&error=1");
+            boolean success = replydao.insertReply(num, userId, reContent, sqlDate);
+            if (success) {
+                response.sendRedirect("post.jsp?postNum=" + num);
+            } else {
+                response.sendRedirect("post.jsp?postNum=" + num + "&error=1");
+            }
+        } catch (NumberFormatException e) {
+            script.println("<script>");
+            script.println("alert('존재하지 않는 게시글입니다..');");
+            script.println("location.href='community.jsp';");
+            script.println("</script>");
         }
     } else {
-        response.sendRedirect("post.jsp?postNum=" + postNumStr + "&error=2");
+        response.sendRedirect("post.jsp?postNum=" + postNumber + "&error=2");
     }
 %>
-
 </body>
 </html>

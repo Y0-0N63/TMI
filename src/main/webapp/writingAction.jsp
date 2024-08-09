@@ -11,19 +11,17 @@
 <body>
 <%
     PrintWriter script = response.getWriter();
-    bbsDAO dao = new bbsDAO();
+    bbsDAO bbsdao = new bbsDAO();
 
-    // 입력 파라미터 가져오기
     String postTitle = request.getParameter("postTitle");
     String postContent = request.getParameter("postContent");
-    String sortString = request.getParameter("sort");
-    int subject = 0; // 기본값 설정
+    String sortString = request.getParameter("subject");
+    int subject = 0;
 
     System.out.println("postTitle: " + postTitle);
     System.out.println("postContent: " + postContent);
     System.out.println("sortString: " + sortString);
 
-    // 파라미터 유효성 검사
     if (sortString != null && !sortString.isEmpty()) {
         try {
             subject = Integer.parseInt(sortString);
@@ -33,11 +31,17 @@
         }
     }
 
-    // 예시로 임의의 userId 사용, 실제로는 로그인 사용자 ID로 대체 필요!!!
+    if ("q&a".equals(sortString)) {
+        subject = 1;
+    } else if ("notice".equals(sortString)) {
+        subject = 2;
+    }
+
+    // 수정!!!!!!!!!!
     int userId = 202310498;
+
     Date postTime = new Date();
 
-    // 입력 값이 유효한지 확인
     if (postTitle != null && !postTitle.isEmpty() && postContent != null && !postContent.isEmpty()) {
         bbs post = new bbs();
         post.setUserId(userId);
@@ -46,12 +50,12 @@
         post.setSubject(subject);
         post.setPostTime(postTime);
 
-        boolean success = dao.insertPost(post);
+        boolean success = bbsdao.insertPost(post);
 
         if (success) {
             script.println("<script>");
             script.println("alert('게시글이 작성되었습니다.');");
-            script.println("location.href='m';");
+            script.println("location.href='community.jsp';");
             script.println("</script>");
         } else {
             script.println("<script>");
