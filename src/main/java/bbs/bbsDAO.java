@@ -125,4 +125,28 @@ public class bbsDAO {
         }
         return posts;
     }
+
+
+    public bbs getPost(int postNum) {
+        String sql = "SELECT * FROM bbs WHERE postNum = ?";
+        bbs post = null;
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, postNum);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                post = new bbs();
+                post.setPostNum(rs.getInt("postNum"));
+                post.setPostTitle(rs.getString("postTitle"));
+                post.setPostContent(rs.getString("postContent"));
+                post.setSubject(rs.getInt("subject"));
+                post.setPostTime(rs.getTimestamp("postTime"));
+                post.setViewCount(rs.getInt("viewCount"));
+                post.setAuthorName(rs.getString("authorName"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return post;
+    }
 }

@@ -19,13 +19,15 @@
 ></iframe>
 
 <%
+    bbsDAO bbsdao = new bbsDAO();
+    bbsdao.updateAuthorName();
     String postNumStr = request.getParameter("postNum");
 
     // 게시글 번호가 없거나 비어있는 경우
-    if (postNumStr == null || postNumStr.trim().isEmpty()) {
+    if (postNumStr == null || postNumStr.isEmpty()) {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter writer = response.getWriter();
-        writer.println("<script>alert('게시글 번호가 없습니다.'); location.href='./post.html';</script>");
+        writer.println("<script>alert('존재하지 않는 게시글입니다.'); location.href='./post.html';</script>");
         writer.close();
         return;
     }
@@ -36,44 +38,76 @@
     } catch (NumberFormatException e) {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter writer = response.getWriter();
-        writer.println("<script>alert('잘못된 게시글 번호입니다.'); location.href='./post.html';</script>");
+        writer.println("<script>alert('잘못된 게시글입니다.'); location.href='./post.html';</script>");
         writer.close();
         return;
     }
 
-    // 게시글 조회
-    bbsDAO dao = new bbsDAO();
-    bbs post = dao.getPost(postNum);
+    bbs post = bbsdao.getPost(postNum);
 
     if (post != null) {
-        // 조회수 증가
-        dao.increaseView(postNum);
+        bbsdao.increaseView(postNum);
 
-        // 댓글 조회
         replyDAO replydao = new replyDAO();
         List<reply> comments = replydao.getReplies(postNum);
+        boolean hasComments = comments != null && !comments.isEmpty();
 %>
 
 <form action="postAction.jsp" method="post" class="container">
     <div class="writing">
-        <div id="sort"><%= post.getSubject() %></div>
+        <%
+            String subjectDisplay;
+            switch(post.getSubject()) {
+                case 0:
+                    subjectDisplay = "일반 게시글";
+                    break;
+                case 1:
+                    subjectDisplay = "[Q&A]";
+                    break;
+                case 2:
+                    subjectDisplay = "[공지사항]";
+                    break;
+                default:
+                    subjectDisplay = "알 수 없음";
+            }
+        %>
+        <div id="sort"><%= subjectDisplay %></div>
         <br />
         <div id="inputTitle"><%= post.getPostTitle() %></div>
+        <br />
+        <div id="inputAuthor">작성자 | <%=post.getAuthorName() %></div>
         <br />
         <br />
         <div id="inputContent"><%= post.getPostContent() %></div>
         <br />
-        <div id="viewCount">조회수: <%= post.getViewCount() %></div> <!-- 조회수 표시 -->
+        <div id="viewCount">조회수 | <%= post.getViewCount() %></div>
     </div>
 
+    <%
+        if (comments != null && !comments.isEmpty()) {
+    %>
     <div class="comment">
-        <% for (reply comment : comments) { %>
+        <%
+            for (int i = 0; i < comments.size(); i++) {
+                reply comment = comments.get(i);
+        %>
         <div id="writer"><%= comment.getReName() %></div>
         <br />
         <div id="cmtContent"><%= comment.getReContent() %></div>
         <br />
-        <% } %>
+        <%
+            }
+        %>
     </div>
+    <%
+    } else {
+    %>
+    <div class="comment">
+        <p>댓글이 없습니다.</p>
+    </div>
+    <%
+        }
+    %>
 
     <div class="writeCmt">
         <input id="inputCmt" name="reContent" placeholder="댓글 작성하기" />
