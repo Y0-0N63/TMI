@@ -21,19 +21,24 @@
 
     int totalPost = bbsdao.getTotal();
     String tempStart = request.getParameter("bbs");
+    String order = request.getParameter("order");
 
     int startPage = 0;
     int pageCount = 30;
 
-    if(tempStart!=null){
-        startPage = (Integer.parseInt(tempStart)-1)*pageCount;
+    if(tempStart != null){
+        startPage = (Integer.parseInt(tempStart) - 1) * pageCount;
     }
 
-    Vector<bbs> posts = bbsdao.getPosts(startPage, pageCount);
+    if (order == null || order.isEmpty()) {
+        order = "latest";
+    }
+
+    Vector<bbs> posts = bbsdao.getPosts(startPage, pageCount, order);
     int totalPages = (int)Math.ceil((double)totalPost / pageCount);
 %>
 
-<form class="community" method="post">
+<form class="community" method="get">
     <div class="first">
         <div>
             <label for="sort"></label>
@@ -48,21 +53,22 @@
           <input
                   type="text"
                   id="menuSearch"
+                  name="search"
                   placeholder="검색어를 입력해주세요"
           />
         </span>
 
-        <button id="searchBtn">검색</button>
+        <button id="searchBtn" type="submit">검색</button>
     </div>
 
     <div class="second">
-        <button id="writeBtn">글 작성하기</button>
+        <button id="writeBtn" onclick="location.href='writing.jsp'">글 작성하기</button>
 
         <div>
             <label for="order"></label>
-            <select name="order" id="order">
-                <option value="latest">최신순</option>
-                <option value="popular">인기순</option>
+            <select name="order" id="order" onchange="this.form.submit()">
+                <option value="latest" <%= "latest".equals(order) ? "selected" : "" %>>최신순</option>
+                <option value="popular" <%= "popular".equals(order) ? "selected" : "" %>>인기순</option>
             </select>
         </div>
     </div>
@@ -78,8 +84,7 @@
             <th>조회수</th>
         </tr>
         <%
-            for (int i=0; i<posts.size(); i++) {
-
+            for (int i = 0; i < posts.size(); i++) {
         %>
         <tr>
             <td><%= posts.get(i).getPostNum() %></td>
@@ -110,7 +115,7 @@
         <%
             for (int i = 1; i <= totalPages; i++) {
         %>
-        <a href="community.jsp?bbs=<%= i %>" class="num"><%= i %></a>
+        <a href="community.jsp?bbs=<%= i %>&order=<%= order %>" class="num"><%= i %></a>
         <%
             }
         %>

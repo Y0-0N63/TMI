@@ -98,9 +98,15 @@ public class bbsDAO {
         }
     }
 
-    public Vector<bbs> getPosts(int start, int limit) {
-        String sql = "SELECT * FROM bbs ORDER BY postNum DESC LIMIT ?, ?";
+    public Vector<bbs> getPosts(int start, int limit, String order) {
         Vector<bbs> posts = new Vector<bbs>();
+        String sql;
+
+        if ("popular".equals(order)) {
+            sql = "SELECT * FROM bbs ORDER BY viewCount DESC, postNum DESC LIMIT ?, ?";
+        } else {
+            sql = "SELECT * FROM bbs ORDER BY postNum DESC LIMIT ?, ?";
+        }
 
         try {
             pstmt = conn.prepareStatement(sql);
