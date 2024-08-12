@@ -9,6 +9,16 @@ public class user {
     private Integer isDeleted;
     private String userComment;
 
+    public Integer getGeneration() {
+        return generation;
+    }
+
+    public void setGeneration(Integer generation) {
+        this.generation = generation;
+    }
+
+    private Integer generation;
+
     // 기본값 설정
     public user() {
         this.userType = 1;

@@ -115,3 +115,34 @@ body {
     margin-left: 30px;
     margin-bottom: 25px;
 }
+
+.info_select {
+    text-align: left;
+    font-size: 23px;
+    font-weight: 500;
+    width: 100%;
+    margin-top: 15px;
+    padding-left: 20px;
+}
+
+#termText {
+    text-decoration: underline;
+    color: white;
+    font-style: italic;
+    margin-right: 5px;
+}
+
+#termSelect {
+    font-size: 22px;
+    font-weight: bold;
+    border: none;
+}
+
+#studyIcon {
+    position: fixed;
+    bottom: 100px;
+    right: 150px;
+    font-size: 150px;
+    cursor: pointer;
+    background-color: transparent;
+}

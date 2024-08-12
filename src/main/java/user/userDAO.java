@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class userDAO {
     private Connection conn;
@@ -139,5 +141,31 @@ public class userDAO {
             e.printStackTrace();
         }
         return userInfo;
+    }
+
+    public List<user> getUserType(int userType, int generation){
+        List<user> users = new ArrayList<>();
+        String sql = "SELECT * FROM user WHERE userType = ? AND generation = ?";
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, userType);
+            pstmt.setInt(2, generation);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                user user = new user();
+                user.setUserId(rs.getString("userId"));
+                user.setUserName(rs.getString("userName"));
+                user.setUserEmail(rs.getString("userEmail"));
+                user.setUserPwd(rs.getString("userPwd"));
+                user.setUserType(rs.getInt("userType"));
+                user.setIsDeleted(rs.getInt("isDeleted"));
+                user.setUserComment(rs.getString("userComment"));
+                user.setGeneration(rs.getInt("generation"));
+                users.add(user);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return users;
     }
 }
