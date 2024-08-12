@@ -168,4 +168,19 @@ public class userDAO {
         }
         return users;
     }
+
+    public List<Integer> getUserGeneration(){
+        List<Integer> generations = new ArrayList<>();
+        String sql = "SELECT DISTINCT generation FROM user WHERE generation IS NOT NULL";
+        try {
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                generations.add(rs.getInt("generation"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return generations;
+    }
 }

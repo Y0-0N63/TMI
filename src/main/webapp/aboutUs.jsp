@@ -75,11 +75,12 @@
             <div class="info_select">
                 <label for="termSelect" id="termText">이전 기수 보러 가기➡️</label>
                 <select id="termSelect" onchange="location.href='aboutUs.jsp?generation=' + this.value;">
-                    <option value="1" <%= (generation == 1) ? "selected" : "" %>>1기</option>
-                    <option value="2" <%= (generation == 2) ? "selected" : "" %>>2기</option>
-                    <option value="3" <%= (generation == 3) ? "selected" : "" %>>3기</option>
-                    <option value="4" <%= (generation == 4) ? "selected" : "" %>>4기</option>
-                    <option value="5" <%= (generation == 5) ? "selected" : "" %>>5기</option>
+                    <%
+                        List<Integer> generations = userdao.getUserGeneration();
+                        for (int g : generations) {
+                    %>
+                    <option value="<%=g %>" <%= (generation == g) ? "selected" : "" %>><%=g %>기</option>
+                    <% } %>
                 </select>
             </div>
 

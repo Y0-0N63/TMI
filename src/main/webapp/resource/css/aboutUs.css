@@ -67,20 +67,17 @@ body {
     align-items: flex-start;
 }
 
-.manager_list {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 500px;
-}
-
-.member_list {
+.manager_list,
+.member_list{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: flex-start;
     justify-content: flex-start;
+    width: 500px;
+}
+
+.member_list {
     width: 850px;
 }
 
@@ -133,6 +130,8 @@ body {
 }
 
 #termSelect {
+    width: 75px;
+    height: 35px;
     font-size: 22px;
     font-weight: bold;
     border: none;
