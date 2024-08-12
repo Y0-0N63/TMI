@@ -1,5 +1,6 @@
 package bbs;
 
+import java.sql.Blob;
 import java.util.Date;
 
 public class bbs {
@@ -11,6 +12,15 @@ public class bbs {
     private String authorName;
     private Integer viewCount;
 
+    public Blob getAttachment() {
+        return attachment;
+    }
+
+    public void setAttachment(Blob attachment) {
+        this.attachment = attachment;
+    }
+
+    private Blob attachment;
 
     public Integer getPostNum() {
         return postNum;
