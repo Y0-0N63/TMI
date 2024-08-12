@@ -9,107 +9,136 @@
     color: white;
 }
 
-.container {
+body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    height: calc(100vh - 180px);
+    height: 100vh;
 }
 
 .writing {
-    margin-top: 50px;
-    border: 3px solid white;
-    width: 70%;
-    height: 550px;
-    border-radius: 20px;
-    text-align: left;
-    padding-left: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
 }
 
-#sort {
-    margin-top: 30px;
+.writing_input {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    border: 3px solid white;
+    width: 1500px;
+    height: 550px;
+}
+
+.input_sort {
+    width: 1470px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-left: 20px;
+}
+
+.input_sort select {
     width: 150px;
-    height: 40px;
+    height: 50px;
+    font-size: 22px;
+    font-weight: bold;
+    border: none;
+}
+
+.input_title textarea {
+    font-size: 25px;
+    font-weight: bold;
+    color: white;
+    text-align: left;
+
+    width: 1450px;
+    height: 55px;
+    line-height: 55px;
+    border: none;
+}
+
+.input_title textarea::placeholder {
+    font-size: 25px;
+    font-weight: bold;
+    color: white;
+    text-align: left;
+}
+
+.input_content textarea {
+    width: 1450px;
+    height: 375px;
+    border: none;
+
+    font-weight: bold;
+    font-size: 23px;
+    color: white;
+    text-align: left;
+}
+
+.input_content textarea::placeholder {
+    font-weight: bold;
+
+    font-size: 23px;
+    color: white;
+    text-align: left;
+}
+
+.writing_btn {
+    width: 1500px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+
+    padding: 10px;
+}
+
+.btn_clip {
+    display: flex;
+    flex-direction: row;
+}
+
+.btn_clip img {
+    width: 50px;
+    cursor: pointer;
+}
+
+#fileName {
+    height: 50px;
+    line-height: 50px;
+    margin: 0px 20px;
+
     font-size: 20px;
     font-weight: 500;
-    text-align: left;
-    border: none;
 }
 
-#inputTitle {
-    width: 90%;
+.btn_upload button {
+    width: 175px;
     height: 50px;
-    padding: 10px 15px;
-    line-height: 50px;
-    text-align: left;
-    border: none;
-    font-size: 23px;
+}
+
+.writing_btn button {
+    width: 150px;
+    height: 50px;
+    border-radius: 10px;
+
+    font-size: 24px;
     font-weight: bold;
 }
 
-#inputContent {
-    font-size: 22px;
-    padding: 10px 15px;
-    margin-bottom: 10px;
-    width: 90%;
-    height: 350px;
-    color: white;
-    text-align: left;
-    border: none;
-}
-
-#inputTitle::placeholder {
-    color: white;
-    font-size: 23px;
-    font-weight: bold;
-}
-
-#inputContent::placeholder {
-    font-size: 22px;
-    font-weight: 500;
-    color: white;
-}
-
-.btn {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    margin-top: 20px;
-    gap: 20px;
-    width: 70%;
-}
-
-#inqBtn {
-    font-size: 25px;
-    font-weight: 700;
-    padding: 5px 10px;
-    line-height: 25px;
-    width: 250px;
-    height: 65px;
+.btn_upload button {
+    margin-right: 15px;
     background-color: white;
-    border-radius: 15px;
     color: #000032;
+    border: none;
 }
 
-#cancelBtn {
-    font-size: 25px;
-    font-weight: 700;
-    padding: 5px 10px;
-    line-height: 25px;
-    width: 250px;
-    height: 65px;
-    background-color: #000032;
-    border: 3px solid white;
-    border-radius: 15px;
-    color: white;
-}
-
-.hidden-file-input {
-    display: none;
-}
-
-#clip {
-    width: 60px;
-    cursor: pointer;
+.btn_cancel button {
+    border: 2px solid white;
 }

@@ -1,15 +1,16 @@
-document.getElementById('clip').addEventListener('click', function () {
-    document.getElementById('fileInput').click();
+document.querySelector('#clip').addEventListener('click', function () {
+    document.querySelector('#fileInput').click();
 });
 
 document
-    .getElementById('fileInput')
+    .querySelector('#fileInput')
     .addEventListener('change', function (event) {
         const file = event.target.files[0];
-        const fileNameSpan = document.getElementById('fileName');
+        const fileNameSpan = document.querySelector('#fileName');
+
         if (file) {
-            fileNameSpan.textContent = `첨부 파일: ${file.name}`;
+            fileNameSpan.textContent = `File Name : ${file.name}`;
         } else {
-            fileNameSpan.textContent = '첨부 파일 없음';
+            fileNameSpan.textContent = 'No File Chosen';
         }
     });
