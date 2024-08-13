@@ -4,6 +4,6 @@
     <title>Index</title>
 </head>
 <body>
-<script>location.href='aboutUs.jsp'</script>
+<script>location.href='calendar.jsp'</script>
 </body>
 </html>
