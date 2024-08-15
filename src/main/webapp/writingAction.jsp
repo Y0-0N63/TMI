@@ -38,7 +38,7 @@
     }
 
     // 수정!!!!!!!!!!
-    int userId = 202410500;
+    int userId = 202310498;
 
     Date postTime = new Date();
 

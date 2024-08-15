@@ -212,12 +212,14 @@ public class bbsDAO {
         return post;
     }
 
-    public List<bbs> getUserPost(String userId) {
+    public List<bbs> getUserPost(String userId, int start, int limit) {
         List<bbs> userPosts = new ArrayList<>();
-        String sql = "SELECT * FROM bbs WHERE userId = ?";
+        String sql = "SELECT * FROM bbs WHERE userId = ? ORDER BY postNum DESC LIMIT ?, ?";
         try {
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, userId);
+            pstmt.setInt(2, start);
+            pstmt.setInt(3, limit);
             rs = pstmt.executeQuery();
             while (rs.next()) {
                 bbs bbs = new bbs();
@@ -235,5 +237,21 @@ public class bbsDAO {
             e.printStackTrace();
         }
         return userPosts;
+    }
+
+    public int getUserPostCount(String userId) {
+        int count = 0;
+        String sql = "SELECT COUNT(*) FROM bbs WHERE userId = ?";
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, userId);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return count;
     }
 }
