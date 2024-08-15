@@ -445,6 +445,7 @@ tr:first-child > td > .fc-day-grid-event {
 
 .fc-mirror-skeleton tr:first-child > td > .fc-day-grid-event {
   margin-top: 0;
+  background-color: #8db1ff;
   /* except for mirror skeleton */
 }
 

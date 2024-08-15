@@ -1,6 +1,8 @@
 package bbs;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 public class bbsDAO {
@@ -208,5 +210,30 @@ public class bbsDAO {
             e.printStackTrace();
         }
         return post;
+    }
+
+    public List<bbs> getUserPost(String userId) {
+        List<bbs> userPosts = new ArrayList<>();
+        String sql = "SELECT * FROM bbs WHERE userId = ?";
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, userId);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                bbs bbs = new bbs();
+                bbs.setPostNum(rs.getInt("postNum"));
+                bbs.setPostTitle(rs.getString("postTitle"));
+                bbs.setPostContent(rs.getString("postContent"));
+                bbs.setSubject(rs.getInt("subject"));
+                bbs.setPostTime(rs.getTimestamp("postTime"));
+                bbs.setViewCount(rs.getInt("viewCount"));
+                bbs.setAuthorName(rs.getString("authorName"));
+
+                userPosts.add(bbs);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return userPosts;
     }
 }
