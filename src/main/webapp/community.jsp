@@ -2,6 +2,7 @@
 <%@ page import="bbs.bbsDAO" %>
 <%@ page import="bbs.bbs" %>
 <%@ page import="java.util.Vector" %>
+<%@ page import="java.net.URLEncoder" %>
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="./resource/css/community.css">
@@ -19,7 +20,6 @@
     bbsDAO bbsdao = new bbsDAO();
     bbsdao.updateAuthorName();
 
-    int totalPost = bbsdao.getTotal();
     String tempStart = request.getParameter("bbs");
     String order = request.getParameter("order");
 
@@ -34,7 +34,11 @@
         order = "latest";
     }
 
-    Vector<bbs> posts = bbsdao.getPosts(startPage, pageCount, order);
+    String searchKeyword = request.getParameter("search");
+    Vector<bbs> posts = bbsdao.getPosts(startPage, pageCount, order, searchKeyword);
+
+    // 검색어가 있음 -> 전체 게시글 개수 = 검색된 결괏값 수
+    int totalPost = searchKeyword != null && !searchKeyword.trim().isEmpty() ? posts.size() : bbsdao.getTotal();
     int totalPages = (int)Math.ceil((double)totalPost / pageCount);
 %>
 
@@ -113,13 +117,18 @@
 
     <div class="page">
         <%
+            // 현재 URL에 존재하는 검색어와 정렬 조건을 포함하여 링크 생성
+            String searchQuery = searchKeyword != null ? "&search=" + URLEncoder.encode(searchKeyword, "UTF-8") : "";
+            String orderQuery = order != null ? "&order=" + order : "";
+
             for (int i = 1; i <= totalPages; i++) {
         %>
-        <a href="community.jsp?bbs=<%= i %>&order=<%= order %>" class="num"><%= i %></a>
+        <a href="community.jsp?bbs=<%= i %><%= searchQuery %><%= orderQuery %>" class="num"><%= i %></a>
         <%
             }
         %>
     </div>
+
 </form>
 
 <span id="studyIcon">📖</span>

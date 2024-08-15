@@ -100,10 +100,58 @@ public class bbsDAO {
         }
     }
 
-    public Vector<bbs> getPosts(int start, int limit, String order) {
-        Vector<bbs> posts = new Vector<bbs>();
+    public Vector<bbs> getPosts(int start, int limit, String order, String searchKeyword) {
+        Vector<bbs> posts = new Vector<>();
         String sql;
 
+        // 검색어 있을 경우
+        if (searchKeyword != null && !searchKeyword.trim().isEmpty()) {
+            searchKeyword = "%" + searchKeyword + "%";
+
+            // 공지사항 고정
+            sql = "SELECT * FROM bbs WHERE subject = 2 AND postTitle LIKE ? ORDER BY postNum DESC LIMIT 0, 10";
+            String sqlRegular = "SELECT * FROM bbs WHERE subject <> 2 AND postTitle LIKE ? ORDER BY "
+                    + ("popular".equals(order) ? "viewCount DESC, " : "")
+                    + "postNum DESC LIMIT ?, ?";
+
+            try {
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1, searchKeyword);
+                rs = pstmt.executeQuery();
+                while (rs.next()) {
+                    bbs post = new bbs();
+                    post.setPostNum(rs.getInt("postNum"));
+                    post.setUserId(rs.getInt("userId"));
+                    post.setPostTitle(rs.getString("postTitle"));
+                    post.setSubject(rs.getInt("subject"));
+                    post.setPostContent(rs.getString("postContent"));
+                    post.setPostTime(rs.getDate("postTime"));
+                    post.setViewCount(rs.getInt("viewCount"));
+                    post.setAuthorName(rs.getString("authorName"));
+                    posts.add(post);
+                }
+
+                pstmt = conn.prepareStatement(sqlRegular);
+                pstmt.setString(1, searchKeyword);
+                pstmt.setInt(2, start);
+                pstmt.setInt(3, limit);
+                rs = pstmt.executeQuery();
+                while (rs.next()) {
+                    bbs post = new bbs();
+                    post.setPostNum(rs.getInt("postNum"));
+                    post.setUserId(rs.getInt("userId"));
+                    post.setPostTitle(rs.getString("postTitle"));
+                    post.setSubject(rs.getInt("subject"));
+                    post.setPostContent(rs.getString("postContent"));
+                    post.setPostTime(rs.getDate("postTime"));
+                    post.setViewCount(rs.getInt("viewCount"));
+                    post.setAuthorName(rs.getString("authorName"));
+                    posts.add(post);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
         // 인기순
         if ("popular".equals(order)) {
             // 공지사항이면 상단 고정
@@ -185,8 +233,10 @@ public class bbsDAO {
                 e.printStackTrace();
             }
         }
+        }
         return posts;
     }
+
 
 
     public bbs getPost(int postNum) {
