@@ -8,10 +8,16 @@ public class scheduleDAO {
     private ResultSet rs;
 
     public ResultSet getSchedule(){
-        String sql = "SELECT * FROM schedules";
+        String sql = "SELECT SCH_TYPE AND SUBJECT FROM schedules WHERE START_M = ? AND START_D = ?";
+        schedule scheduleData = null;
         try {
             pstmt = conn.prepareStatement(sql);
             rs = pstmt.executeQuery();
+            if (rs.next()) {
+                scheduleData = new schedule();
+                scheduleData.setSCH_TYPE(rs.getString("SCH_TYPE"));
+                scheduleData.setSUBJECT(rs.getString("SUBJECT"));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
