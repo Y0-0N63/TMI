@@ -105,6 +105,14 @@ public class userDAO {
         }
     }
 
+    public boolean setEmail(String userId, String userEmail) {
+        String sql = "UPDATE user SET userEmail = ? WHERE userId =?";
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, userEmail);
+        }
+    }
+
     public String getUserName(int userId) {
         String userName = "알 수 없음";
         String sql = "SELECT userName FROM user WHERE userId = ?";

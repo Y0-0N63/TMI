@@ -12,7 +12,7 @@
         style="width: 100%; height: 100px"
 ></iframe>
 
-<div class="setEmail">
+<form class="setEmail" action="setEmail.jsp" method="post">
     <div class="setEmail_input">
         <input type="text" placeholder="새로운 이메일 주소를 입력하세요." />
     </div>
@@ -29,7 +29,7 @@
             이메일 변경
         </button>
     </div>
-</div>
+</form>
 </body>
 
 </html>
