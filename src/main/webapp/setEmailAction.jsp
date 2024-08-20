@@ -1,9 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Index</title>
+    <title>Title</title>
 </head>
 <body>
-<script>location.href='setEmail.jsp'</script>
+
 </body>
 </html>

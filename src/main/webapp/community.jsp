@@ -34,6 +34,7 @@
         order = "latest";
     }
 
+    // 검색어 처리 -> 게시글 목록 가져오기
     String searchKeyword = request.getParameter("search");
     Vector<bbs> posts = bbsdao.getPosts(startPage, pageCount, order, searchKeyword);
 

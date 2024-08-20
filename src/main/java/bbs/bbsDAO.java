@@ -22,6 +22,7 @@ public class bbsDAO {
         }
     }
 
+    // 게시글 작성
     public boolean insertPost(bbs post){
         String sql = "INSERT INTO bbs (userId, postTitle, subject, postContent, postTime) VALUES (?, ?, ?, ?, ?)";
         try {
@@ -39,6 +40,7 @@ public class bbsDAO {
         }
     }
 
+    // 조회수 증가
     public void increaseView(int postNum) {
         String sql = "UPDATE bbs SET viewCount = viewCount + 1 WHERE postNum = ?";
         try {
@@ -50,6 +52,7 @@ public class bbsDAO {
         }
     }
 
+    // 현재 게시글 전체 개수 가져오기
     public int getTotal() {
         int total = 0;
         String sql = "SELECT COUNT(*) FROM bbs";
@@ -65,6 +68,7 @@ public class bbsDAO {
         return total;
     }
 
+    // 작성자 이름 갖고오기
     public void updateAuthorName() {
         String getUserNameSql = "SELECT userName FROM user WHERE userId = ?";
         String updateAuthorNameSql = "UPDATE bbs SET authorName =? WHERE userId = ?";
@@ -100,6 +104,7 @@ public class bbsDAO {
         }
     }
 
+    // 게시글 출력
     public Vector<bbs> getPosts(int start, int limit, String order, String searchKeyword) {
         Vector<bbs> posts = new Vector<>();
         String sql;
