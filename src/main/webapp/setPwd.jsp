@@ -45,7 +45,11 @@
                 <button type="submit">확인</button>
             </div>
             <div>
-                <button id="cancelBtn" type="button">취소</button>
+                <button
+                        id="cancelBtn"
+                        type="button"
+                        onclick="location.href='main.jsp'"
+                >취소</button>
             </div>
         </div>
     </form>

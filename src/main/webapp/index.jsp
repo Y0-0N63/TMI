@@ -4,6 +4,6 @@
     <title>Index</title>
 </head>
 <body>
-<script>location.href='join.jsp'</script>
+<script>location.href='setPwd.jsp'</script>
 </body>
 </html>
