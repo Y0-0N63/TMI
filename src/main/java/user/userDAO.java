@@ -105,11 +105,17 @@ public class userDAO {
         }
     }
 
-    public boolean setEmail(String userId, String userEmail) {
+    public boolean setEmail(String userId, String newEmail) {
         String sql = "UPDATE user SET userEmail = ? WHERE userId =?";
         try {
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, userEmail);
+            pstmt.setString(1, newEmail);
+            pstmt.setString(2, userId);
+            pstmt.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }
 

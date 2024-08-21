@@ -12,20 +12,21 @@
         style="width: 100%; height: 100px"
 ></iframe>
 
-<form class="setEmail" action="setEmail.jsp" method="post">
+<form class="setEmail" action="setEmailAction.jsp" method="post">
     <div class="setEmail_input">
-        <input type="text" placeholder="새로운 이메일 주소를 입력하세요." />
+        <input type="text" name="newEmail" placeholder="새로운 이메일 주소를 입력하세요." />
     </div>
     <div class="setEmail_input">
         <input
                 id="inputNewPwd"
+                name="currentPwd"
                 type="text"
                 placeholder="비밀번호를 입력하세요"
         />
     </div>
 
     <div class="setEmail_btn">
-        <button id="setBtn" onclick="alert('이메일이 재설정되었습니다.')">
+        <button id="setBtn" type="submit">
             이메일 변경
         </button>
     </div>
