@@ -26,7 +26,6 @@
     System.out.println("userPwd: " + userPwd);
     System.out.println("userEmail: " + userEmail);
 
-
     if (userId != null && !userId.isEmpty() && userName != null && !userName.isEmpty() && userPwd != null && !userPwd.isEmpty() && userEmail != null && !userEmail.isEmpty() ) {
         boolean success = userdao.join(user);
         if (success) {

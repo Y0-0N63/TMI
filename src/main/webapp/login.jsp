@@ -31,7 +31,7 @@
     </div>
     <div class="login_link">
         <a href="join.jsp">회원가입</a>
-        | <a href="getPwd.jsp">비밀번호 찾기</a>
+        | <a href="setPwd.jsp">비밀번호 찾기</a>
     </div>
 </form>
 

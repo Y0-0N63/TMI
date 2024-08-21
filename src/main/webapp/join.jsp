@@ -49,7 +49,11 @@
         >
             가입하기
         </button>
-        <button id="cancelBtn" >
+        <button
+                id="cancelBtn"
+                type="button"
+                onclick="location.href='main.jsp'"
+        >
             취소
         </button>
     </div>

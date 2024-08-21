@@ -4,6 +4,6 @@
     <title>Index</title>
 </head>
 <body>
-<script>location.href='setEmail.jsp'</script>
+<script>location.href='join.jsp'</script>
 </body>
 </html>
