@@ -55,7 +55,7 @@
         if (success) {
             script.println("<script>");
             script.println("alert('게시글이 작성되었습니다.');");
-            script.println("location.href='community.jsp';");
+            script.println("location.href='bbs.jsp';");
             script.println("</script>");
         } else {
             script.println("<script>");

@@ -5,7 +5,7 @@
 <%@ page import="java.net.URLEncoder" %>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="./resource/css/community.css">
+    <link rel="stylesheet" type="text/css" href="resource/css/bbs.css">
     <title>게시판</title>
 </head>
 <body>
@@ -33,7 +33,7 @@
     if (order == null || order.isEmpty()) {
         order = "latest";
     }
-
+        
     // 검색어 처리 -> 게시글 목록 가져오기
     String searchKeyword = request.getParameter("search");
     Vector<bbs> posts = bbsdao.getPosts(startPage, pageCount, order, searchKeyword);
@@ -91,7 +91,7 @@
         <%
             for (int i = 0; i < posts.size(); i++) {
         %>
-        <tr>
+        <tr class="<%= posts.get(i).getSubject() == 2 ? "notice" : "" %>">
             <td><%= posts.get(i).getPostNum() %></td>
             <td>
                 <%
@@ -124,7 +124,7 @@
 
             for (int i = 1; i <= totalPages; i++) {
         %>
-        <a href="community.jsp?bbs=<%= i %><%= searchQuery %><%= orderQuery %>" class="num"><%= i %></a>
+        <a href="bbs.jsp?bbs=<%= i %><%= searchQuery %><%= orderQuery %>" class="num"><%= i %></a>
         <%
             }
         %>

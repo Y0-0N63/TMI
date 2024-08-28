@@ -37,7 +37,7 @@
         } catch (NumberFormatException e) {
             script.println("<script>");
             script.println("alert('존재하지 않는 게시글입니다..');");
-            script.println("location.href='community.jsp';");
+            script.println("location.href='bbs.jsp';");
             script.println("</script>");
         }
     } else {

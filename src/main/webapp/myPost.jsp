@@ -4,7 +4,7 @@
     <%@ page contentType="text/html;charset=UTF-8" language="java" %>
     <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="./resource/css/community.css">
+        <link rel="stylesheet" type="text/css" href="resource/css/bbs.css">
         <title>내가 쓴 글</title>
     </head>
     <body>
