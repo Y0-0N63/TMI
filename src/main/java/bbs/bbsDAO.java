@@ -10,7 +10,7 @@ public class bbsDAO {
     private PreparedStatement pstmt;
     private ResultSet rs;
 
-    public bbsDAO(){
+    public bbsDAO() {
         try {
             String dbURL = "jdbc:mysql://localhost:3306/tmi?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8";
             String dbID = "boyun";
@@ -22,8 +22,33 @@ public class bbsDAO {
         }
     }
 
-    // 게시글 작성
-    public boolean insertPost(bbs post){
+    private List<bbs> getPostsByQuery(String sql, Object... params) {
+        List<bbs> posts = new ArrayList<>();
+        try {
+            pstmt = conn.prepareStatement(sql);
+            for (int i = 0; i < params.length; i++) {
+                pstmt.setObject(i + 1, params[i]);
+            }
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                bbs post = new bbs();
+                post.setPostNum(rs.getInt("postNum"));
+                post.setUserId(rs.getInt("userId"));
+                post.setPostTitle(rs.getString("postTitle"));
+                post.setSubject(rs.getInt("subject"));
+                post.setPostContent(rs.getString("postContent"));
+                post.setPostTime(rs.getDate("postTime"));
+                post.setViewCount(rs.getInt("viewCount"));
+                post.setAuthorName(rs.getString("authorName"));
+                posts.add(post);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return posts;
+    }
+
+    public boolean insertPost(bbs post) {
         String sql = "INSERT INTO bbs (userId, postTitle, subject, postContent, postTime) VALUES (?, ?, ?, ?, ?)";
         try {
             pstmt = conn.prepareStatement(sql);
@@ -40,51 +65,26 @@ public class bbsDAO {
         }
     }
 
-    // 조회수 증가
     public void increaseView(int postNum) {
         String sql = "UPDATE bbs SET viewCount = viewCount + 1 WHERE postNum = ?";
-        try {
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, postNum);
-            pstmt.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        executeUpdate(sql, postNum);
     }
 
-    // 현재 게시글 전체 개수 가져오기
     public int getTotal() {
-        int total = 0;
         String sql = "SELECT COUNT(*) FROM bbs";
-        try {
-            pstmt = conn.prepareStatement(sql);
-            rs = pstmt.executeQuery();
-            if (rs.next()) {
-                total = rs.getInt(1);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return total;
+        return executeCountQuery(sql);
     }
 
-    // 작성자 이름 갖고오기
     public void updateAuthorName() {
         String getUserNameSql = "SELECT userName FROM user WHERE userId = ?";
-        String updateAuthorNameSql = "UPDATE bbs SET authorName =? WHERE userId = ?";
+        String updateAuthorNameSql = "UPDATE bbs SET authorName = ? WHERE userId = ?";
 
         try {
-            String selectPostsSql = "SELECT postNum, userId FROM bbs";
-            pstmt = conn.prepareStatement(selectPostsSql);
-            rs = pstmt.executeQuery();
-
-            while (rs.next()) {
-                int postNum = rs.getInt("postNum");
-                int userId = rs.getInt("userId");
-
-                PreparedStatement getUerName = conn.prepareStatement(getUserNameSql);
-                getUerName.setInt(1, userId);
-                ResultSet rsUserName = getUerName.executeQuery();
+            List<bbs> posts = getPostsByQuery("SELECT postNum, userId FROM bbs");
+            for (bbs post : posts) {
+                PreparedStatement getUserNameStmt = conn.prepareStatement(getUserNameSql);
+                getUserNameStmt.setInt(1, post.getUserId());
+                ResultSet rsUserName = getUserNameStmt.executeQuery();
 
                 String authorName = "알 수 없음";
                 if (rsUserName.next()) {
@@ -94,210 +94,56 @@ public class bbsDAO {
                     }
                 }
 
-                PreparedStatement pstmtUpdateAuthor = conn.prepareStatement(updateAuthorNameSql);
-                pstmtUpdateAuthor.setString(1, authorName);
-                pstmtUpdateAuthor.setInt(2, userId);
-                pstmtUpdateAuthor.executeUpdate();
+                executeUpdate(updateAuthorNameSql, authorName, post.getUserId());
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    // 게시글 출력
     public Vector<bbs> getPosts(int start, int limit, String order, String searchKeyword) {
         Vector<bbs> posts = new Vector<>();
-        String sql;
+        String noticeSql = "SELECT * FROM bbs WHERE subject = 2 ORDER BY postNum DESC LIMIT 0, 10";
+        String searchSql = "SELECT * FROM bbs WHERE subject <> 2 AND postTitle LIKE ? ORDER BY " +
+                ("popular".equals(order) ? "viewCount DESC, " : "") + "postNum DESC LIMIT ?, ?";
+        String regularSql = "SELECT * FROM bbs WHERE subject <> 2 ORDER BY " +
+                ("popular".equals(order) ? "viewCount DESC, " : "") + "postNum DESC LIMIT ?, ?";
 
-        // 검색어 있을 경우
+        posts.addAll(getPostsByQuery(noticeSql));
+
         if (searchKeyword != null && !searchKeyword.trim().isEmpty()) {
             searchKeyword = "%" + searchKeyword + "%";
-
-            // 공지사항 고정
-            sql = "SELECT * FROM bbs WHERE subject = 2 AND postTitle LIKE ? ORDER BY postNum DESC LIMIT 0, 10";
-            String sqlRegular = "SELECT * FROM bbs WHERE subject <> 2 AND postTitle LIKE ? ORDER BY "
-                    + ("popular".equals(order) ? "viewCount DESC, " : "")
-                    + "postNum DESC LIMIT ?, ?";
-
-            try {
-                pstmt = conn.prepareStatement(sql);
-                pstmt.setString(1, searchKeyword);
-                rs = pstmt.executeQuery();
-                while (rs.next()) {
-                    bbs post = new bbs();
-                    post.setPostNum(rs.getInt("postNum"));
-                    post.setUserId(rs.getInt("userId"));
-                    post.setPostTitle(rs.getString("postTitle"));
-                    post.setSubject(rs.getInt("subject"));
-                    post.setPostContent(rs.getString("postContent"));
-                    post.setPostTime(rs.getDate("postTime"));
-                    post.setViewCount(rs.getInt("viewCount"));
-                    post.setAuthorName(rs.getString("authorName"));
-                    posts.add(post);
-                }
-
-                pstmt = conn.prepareStatement(sqlRegular);
-                pstmt.setString(1, searchKeyword);
-                pstmt.setInt(2, start);
-                pstmt.setInt(3, limit);
-                rs = pstmt.executeQuery();
-                while (rs.next()) {
-                    bbs post = new bbs();
-                    post.setPostNum(rs.getInt("postNum"));
-                    post.setUserId(rs.getInt("userId"));
-                    post.setPostTitle(rs.getString("postTitle"));
-                    post.setSubject(rs.getInt("subject"));
-                    post.setPostContent(rs.getString("postContent"));
-                    post.setPostTime(rs.getDate("postTime"));
-                    post.setViewCount(rs.getInt("viewCount"));
-                    post.setAuthorName(rs.getString("authorName"));
-                    posts.add(post);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            posts.addAll(getPostsByQuery(searchSql, searchKeyword, start, limit));
         } else {
-            // 인기순
-            if ("popular".equals(order)) {
-                // 공지사항이면 상단 고정
-                sql = "SELECT * FROM bbs WHERE subject = 2 ORDER BY postNum DESC LIMIT 0, 10";
-                String sqlRegular = "SELECT * FROM bbs WHERE subject <> 2 ORDER BY viewCount DESC, postNum DESC LIMIT ?, ?";
-                try {
-                    pstmt = conn.prepareStatement(sql);
-                    rs = pstmt.executeQuery();
-                    while (rs.next()) {
-                        bbs post = new bbs();
-                        post.setPostNum(rs.getInt("postNum"));
-                        post.setUserId(rs.getInt("userId"));
-                        post.setPostTitle(rs.getString("postTitle"));
-                        post.setSubject(rs.getInt("subject"));
-                        post.setPostContent(rs.getString("postContent"));
-                        post.setPostTime(rs.getDate("postTime"));
-                        post.setViewCount(rs.getInt("viewCount"));
-                        post.setAuthorName(rs.getString("authorName"));
-                        posts.add(post);
-                    }
-
-                    pstmt = conn.prepareStatement(sqlRegular);
-                    pstmt.setInt(1, start);
-                    pstmt.setInt(2, limit);
-                    rs = pstmt.executeQuery();
-                    while (rs.next()) {
-                        bbs post = new bbs();
-                        post.setPostNum(rs.getInt("postNum"));
-                        post.setUserId(rs.getInt("userId"));
-                        post.setPostTitle(rs.getString("postTitle"));
-                        post.setSubject(rs.getInt("subject"));
-                        post.setPostContent(rs.getString("postContent"));
-                        post.setPostTime(rs.getDate("postTime"));
-                        post.setViewCount(rs.getInt("viewCount"));
-                        post.setAuthorName(rs.getString("authorName"));
-                        posts.add(post);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                // 최신순
-            } else {
-                // 공지사항이면 상단 고정
-                sql = "SELECT * FROM bbs WHERE subject = 2 ORDER BY postNum DESC LIMIT 0, 10";
-                String sqlRegular = "SELECT * FROM bbs WHERE subject <> 2 ORDER BY postNum DESC LIMIT ?, ?";
-                try {
-                    pstmt = conn.prepareStatement(sql);
-                    rs = pstmt.executeQuery();
-                    while (rs.next()) {
-                        bbs post = new bbs();
-                        post.setPostNum(rs.getInt("postNum"));
-                        post.setUserId(rs.getInt("userId"));
-                        post.setPostTitle(rs.getString("postTitle"));
-                        post.setSubject(rs.getInt("subject"));
-                        post.setPostContent(rs.getString("postContent"));
-                        post.setPostTime(rs.getDate("postTime"));
-                        post.setViewCount(rs.getInt("viewCount"));
-                        post.setAuthorName(rs.getString("authorName"));
-                        posts.add(post);
-                    }
-
-                    pstmt = conn.prepareStatement(sqlRegular);
-                    pstmt.setInt(1, start);
-                    pstmt.setInt(2, limit);
-                    rs = pstmt.executeQuery();
-                    while (rs.next()) {
-                        bbs post = new bbs();
-                        post.setPostNum(rs.getInt("postNum"));
-                        post.setUserId(rs.getInt("userId"));
-                        post.setPostTitle(rs.getString("postTitle"));
-                        post.setSubject(rs.getInt("subject"));
-                        post.setPostContent(rs.getString("postContent"));
-                        post.setPostTime(rs.getDate("postTime"));
-                        post.setViewCount(rs.getInt("viewCount"));
-                        post.setAuthorName(rs.getString("authorName"));
-                        posts.add(post);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+            posts.addAll(getPostsByQuery(regularSql, start, limit));
         }
+
         return posts;
     }
 
     public bbs getPost(int postNum) {
         String sql = "SELECT * FROM bbs WHERE postNum = ?";
-        bbs post = null;
-        try {
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, postNum);
-            rs = pstmt.executeQuery();
-            if (rs.next()) {
-                post = new bbs();
-                post.setPostNum(rs.getInt("postNum"));
-                post.setPostTitle(rs.getString("postTitle"));
-                post.setPostContent(rs.getString("postContent"));
-                post.setSubject(rs.getInt("subject"));
-                post.setPostTime(rs.getTimestamp("postTime"));
-                post.setViewCount(rs.getInt("viewCount"));
-                post.setAuthorName(rs.getString("authorName"));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return post;
+        List<bbs> posts = getPostsByQuery(sql, postNum);
+        return posts.isEmpty() ? null : posts.get(0);
     }
 
     public List<bbs> getUserPost(String userId, int start, int limit) {
-        List<bbs> userPosts = new ArrayList<>();
         String sql = "SELECT * FROM bbs WHERE userId = ? ORDER BY postNum DESC LIMIT ?, ?";
-        try {
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, userId);
-            pstmt.setInt(2, start);
-            pstmt.setInt(3, limit);
-            rs = pstmt.executeQuery();
-            while (rs.next()) {
-                bbs bbs = new bbs();
-                bbs.setPostNum(rs.getInt("postNum"));
-                bbs.setPostTitle(rs.getString("postTitle"));
-                bbs.setPostContent(rs.getString("postContent"));
-                bbs.setSubject(rs.getInt("subject"));
-                bbs.setPostTime(rs.getTimestamp("postTime"));
-                bbs.setViewCount(rs.getInt("viewCount"));
-                bbs.setAuthorName(rs.getString("authorName"));
-
-                userPosts.add(bbs);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return userPosts;
+        return getPostsByQuery(sql, userId, start, limit);
     }
 
     public int getUserPostCount(String userId) {
-        int count = 0;
         String sql = "SELECT COUNT(*) FROM bbs WHERE userId = ?";
+        return executeCountQuery(sql, userId);
+    }
+
+    private int executeCountQuery(String sql, Object... params) {
+        int count = 0;
         try {
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, userId);
+            for (int i = 0; i < params.length; i++) {
+                pstmt.setObject(i + 1, params[i]);
+            }
             rs = pstmt.executeQuery();
             if (rs.next()) {
                 count = rs.getInt(1);
@@ -306,5 +152,17 @@ public class bbsDAO {
             e.printStackTrace();
         }
         return count;
+    }
+
+    private void executeUpdate(String sql, Object... params) {
+        try {
+            pstmt = conn.prepareStatement(sql);
+            for (int i = 0; i < params.length; i++) {
+                pstmt.setObject(i + 1, params[i]);
+            }
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

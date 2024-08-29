@@ -33,7 +33,7 @@
     if (order == null || order.isEmpty()) {
         order = "latest";
     }
-        
+
     // 검색어 처리 -> 게시글 목록 가져오기
     String searchKeyword = request.getParameter("search");
     Vector<bbs> posts = bbsdao.getPosts(startPage, pageCount, order, searchKeyword);
@@ -45,15 +45,6 @@
 
 <form class="community" method="get">
     <div class="first">
-        <div>
-            <label for="sort"></label>
-            <select name="sort" id="sort">
-                <option value="all">전체 게시글</option>
-                <option value="q&a">Q&A</option>
-                <option value="notice">공지사항</option>
-            </select>
-        </div>
-
         <span class="menuItem">
           <input
                   type="text"
